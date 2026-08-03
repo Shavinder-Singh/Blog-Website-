@@ -1,0 +1,7 @@
+run backend by npm run dev (same frontend also)
+npm install after git clone 
+
+tailwind css
+npm install tailwindcss @tailwindcss/vite
+vite config file write tailwindcss()
+write this in index.css @import "tailwindcss"; 
