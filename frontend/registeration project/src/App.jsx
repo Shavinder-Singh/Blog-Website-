@@ -11,6 +11,7 @@ import Register from "./pages/Register.jsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import CreatePost from "./pages/CreatePost.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -41,6 +42,7 @@ function App() {
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/register" element={<Register setUser={setUser} />} />
         <Route path="/createPost" element={<CreatePost />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

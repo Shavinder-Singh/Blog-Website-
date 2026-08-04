@@ -7,13 +7,21 @@ const CreatePost = () => {
     title: "",
     description: "",
   });
-
+  const token = localStorage.getItem("token");
+  console.log(token);
+  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        // 
+      const response = await axios.post("/api/posts/createPost", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Post created successfully:", response.data);
     } catch (error) {
       console.error("Error creating post:", error);
+      console.log("Backend response:", error.response.data);
     }
   };
   return (

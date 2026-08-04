@@ -5,3 +5,7 @@ tailwind css
 npm install tailwindcss @tailwindcss/vite
 vite config file write tailwindcss()
 write this in index.css @import "tailwindcss"; 
+
+git add . 
+git commit -m " "
+git push -u origin main
