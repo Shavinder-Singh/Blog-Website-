@@ -1,10 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [getPosts, setGetPosts] = useState([]);
-  console.log(getPosts);
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchPosts = async () => {
       const token = localStorage.getItem("token");
@@ -24,8 +27,21 @@ const Dashboard = () => {
   }, []);
 
   //   Editing a Post
-  const handleEdit = async (e) => { 
+  const handleEdit = async (post) => {
+    navigate(`/createPost/${post._id}`);
+  };
 
+  const handleDelete = async (post) => {
+    try {
+      const res = await axios.delete(`/api/posts/deletePost/${post._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div>
@@ -34,8 +50,8 @@ const Dashboard = () => {
           <div key={post._id}>
             <h1>{post.title}</h1>
             <p>{post.description}</p>
-            <button onClick={(e) => handleEdit}>Edit</button>
-            <button>Delete</button>
+            <button onClick={(e) => handleEdit(post)}>Edit</button>
+            <button onClick={(e) => handleDelete(post)}>Delete</button>
           </div>
         );
       })}

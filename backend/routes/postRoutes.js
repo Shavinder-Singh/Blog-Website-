@@ -41,6 +41,22 @@ router.get("/getAllPosts", protect, async (req, res) => {
     }
 });
 
+// get only one post for editing 
+router.get("/getPost/:id", protect, async (req, res) => {
+    try {
+        const getOnePost = await Post.findOne({
+            _id: req.params.id,
+            userId: req.user._id
+        });
+        res.status(200).json({
+            message: "post fetched successfully for editing",
+            data: getOnePost
+        })
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+});
 
 // Update a post
 
