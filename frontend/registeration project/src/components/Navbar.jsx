@@ -7,7 +7,10 @@ const Navbar = () => {
       <Link to="/dashboard" className="mr-4">Dashboard</Link>
       <Link to="/createPost" className="mr-4">Create Post</Link>
       <Link to="/login" className="mr-4">Login</Link>
-      <Link to="/register">Register</Link>
+      <Link to="/register">Register </Link>
+      <Link to="/allPosts">All Posts</Link>
+
+      
     </nav>
   );
 };

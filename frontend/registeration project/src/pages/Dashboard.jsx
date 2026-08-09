@@ -8,6 +8,7 @@ const Dashboard = () => {
   const [getPosts, setGetPosts] = useState([]);
   const token = localStorage.getItem("token");
 
+  // get Posts only for user
   useEffect(() => {
     const fetchPosts = async () => {
       const token = localStorage.getItem("token");
@@ -31,6 +32,7 @@ const Dashboard = () => {
     navigate(`/createPost/${post._id}`);
   };
 
+  //delete post
   const handleDelete = async (post) => {
     try {
       const res = await axios.delete(`/api/posts/deletePost/${post._id}`, {

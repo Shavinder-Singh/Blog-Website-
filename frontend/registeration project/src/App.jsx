@@ -12,6 +12,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import CreatePost from "./pages/CreatePost.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import AllPosts from "./pages/AllPosts.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -44,6 +45,7 @@ function App() {
         <Route path="/createPost" element={<CreatePost />} />
         <Route path="/createPost/:id" element={<CreatePost />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/allPosts" element={<AllPosts />} />
       </Routes>
     </Router>
   );
