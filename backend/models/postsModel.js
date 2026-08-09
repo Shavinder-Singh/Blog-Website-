@@ -21,6 +21,13 @@ const postSchema = new mongoose.Schema(
                 ref: "User",
                 required: true
             }
+        ],
+        savedBy: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+                required: true
+            }
         ]
     },
     {

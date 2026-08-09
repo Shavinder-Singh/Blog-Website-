@@ -18,13 +18,30 @@ const AllPosts = () => {
     fetchPosts();
   }, []);
 
+  //Like post
+  const handleLike = async (postId) => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post(`/api/posts/likePost/${postId}`, {},{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        
+      }});
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       {posts.map((post) => (
         <div key={post._id} className="border p-4 mb-4">
           <h2>{post.title}</h2>
           <p>{post.description}</p>
-          <button>Like <span></span></button>
+          <button onClick={() => handleLike(post._id)}>
+            Like <span>{post.likedBy.length}</span>
+          </button>
         </div>
       ))}
     </div>

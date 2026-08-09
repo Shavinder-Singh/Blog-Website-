@@ -129,4 +129,49 @@ router.post("/likePost/:id", protect, async (req, res) => {
     }
 })
 
+
+// saves Posts
+router.post("/savePost/:id", protect, async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id); //post id
+        const userId = req.user._id;//user id from token
+        const alreadySaved = post.savedBy.includes(userId);
+        if (alreadySaved) {
+            post.savedBy = post.savedBy.filter((id) => id.toString() !== userId.toString());
+        }
+        else {
+            post.savedBy.push(userId)
+        }
+        await post.save();
+        res.status(200).json({
+            message: alreadySaved
+                ? "Post unsaved successfully"
+                : "Post saved successfully",
+            data: post
+        })
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+});
+
+
+//Show Saved posts
+router.get("/savedPosts", protect, async (req, res) => {
+    try {
+        const posts = await Post.find({
+            savedBy: req.user._id,
+        }).populate("userId", "username email");
+        res.status(200).json({
+            message: "Saved posts fetched successfully",
+            data: posts
+        });
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+});
+
+
+
 export default router;
