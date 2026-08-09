@@ -45,6 +45,43 @@ const Dashboard = () => {
       console.log(err);
     }
   };
+
+  // Saved Posts show to user
+  const [savedPosts, setSavedPosts] = useState([]);
+  const fetchSavedPosts = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const res = await axios.get("/api/posts/savedPosts", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setSavedPosts(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  fetchSavedPosts();
+
+  // save or unsave post in dashboard 
+   const handleSave = async (postId) => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post(
+        `/api/posts/savePost/${postId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div>
       {getPosts.map((post) => {
@@ -56,6 +93,16 @@ const Dashboard = () => {
             <button onClick={(e) => handleDelete(post)}>Delete</button>
           </div>
         );
+      })}
+      <h1>Saved Posts</h1>
+      {savedPosts.map((savepost)=>{
+        return(
+          <div key={savepost._id}>
+            <h1>{savepost.title}</h1>
+            <p>{savepost.description}</p>
+            <button onClick={() => handleSave(savepost._id)}>Unsave</button>
+          </div>
+        )
       })}
     </div>
   );

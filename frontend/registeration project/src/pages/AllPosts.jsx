@@ -22,17 +22,39 @@ const AllPosts = () => {
   const handleLike = async (postId) => {
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.post(`/api/posts/likePost/${postId}`, {},{
-        headers: {
-          Authorization: `Bearer ${token}`,
-        
-      }});
+      const res = await axios.post(
+        `/api/posts/likePost/${postId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
       console.log(res.data);
     } catch (err) {
       console.log(err);
     }
   };
 
+  // save post
+  const handleSave = async (postId) => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post(
+        `/api/posts/savePost/${postId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div>
       {posts.map((post) => (
@@ -41,6 +63,9 @@ const AllPosts = () => {
           <p>{post.description}</p>
           <button onClick={() => handleLike(post._id)}>
             Like <span>{post.likedBy.length}</span>
+          </button>
+          <button onClick={() => handleSave(post._id)}>
+            Save <span>{post.savedBy.length}</span>
           </button>
         </div>
       ))}
