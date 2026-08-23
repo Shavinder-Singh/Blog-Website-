@@ -84,6 +84,7 @@ const Dashboard = () => {
   };
   return (
     <div>
+      <h1>All Posts</h1>
       {getPosts.map((post) => {
         return (
           <div key={post._id}>

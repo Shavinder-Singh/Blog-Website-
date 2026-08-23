@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/postRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
 import { connectDb } from "./config/db.js";
 dotenv.config();
 
@@ -17,8 +18,10 @@ app.use(express.json());
 //routes => login signup
 app.use("/api/users", authRoutes);
 
-
 app.use("/api/posts", postRoutes);
+
+app.use("/api/comments", commentRoutes);
+
 
 
 connectDb();
